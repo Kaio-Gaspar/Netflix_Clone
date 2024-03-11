@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+HomeContent Netflix
+{% endblock %}
+
+{% block content %}
+<div class="py-10">
+    <h1>Esse é o detalhe do filme: {{ object.titulo }}</h1>
+    <p>{{ object }}</p>
+    <P>{{ object.descricao }}</P>
+    <img src="{{ object.thumb.url }}">
+    
+    <h2>Episódios</h2>
+    {% for episodio in object.episodios.all %}
+    <a href="{{ episodio.video }}">
+        <p>Episódio {{ forloop.counter }}: {{ episodio.titulo }}</p>
+    </a>
+{% endfor %}
+
+</div>
+
+<div class="py-10">
+    {% for conteudo in conteudos_relacionados %}
+    <P>
+        <a href="{% url 'conteudo:detalhesconteudo' conteudo.pk %}">
+            {{ conteudo.titulo }}
+        </a>
+    </P>
+    {% endfor %}
+
+</div>
+{% endblock %}

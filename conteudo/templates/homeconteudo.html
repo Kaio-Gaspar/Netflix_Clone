@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+HomeContent Netflix
+{% endblock %}
+
+{% block content %}
+<div class="py-40">
+    
+    {% for conteudo in object_list %}
+        <hr>
+        <a href="{% url 'conteudo:detalhesconteudo' conteudo.pk %}"><p>{{ conteudo.titulo }}</p></a>
+        <p>{{ conteudo.descricao }}</p>
+        <img src="{{ conteudo.thumb.url }}">
+        
+        
+
+    {% endfor %}
+</div>
+{% endblock %}

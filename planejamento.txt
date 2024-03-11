@@ -1,0 +1,18 @@
+- homepage
+- fazer login e criar conta(user e autenticação)
+    - email
+    - senha
+    - conteudo assistidos
+    - editar perfil
+
+- filmes/series
+    - thumb
+    - categoria
+    - titulo
+    - eps
+        - videos
+        - titulo
+
+
+
+- barra de pesquisa
