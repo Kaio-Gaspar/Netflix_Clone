@@ -1,10 +1,78 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block titulo %}
 HomeContent Netflix
 {% endblock %}
 
 {% block content %}
+
+<main class='bg-primary_black min-h-screen w-full'>
+    <section class="h-screen relative bg-no-repeat pb-8 pl-6 flex items-end bg-cover" style="background-image: url('{% static 'images/codethumb.jpg' %}')"
+
+    <div>
+        <h2 class="text-6xl font-semibold text-white my-4">
+          Titulo  
+        </h2>
+        <p class=" w-11/12 md:w-5/12 font-medium text-white my-4">
+        </p>
+        <div class="flex my-4">
+            <a href="#">
+                <button class="flex items-center bg-white py-2 px-5 rounded-md" style='color:black;'>
+                    <ion-icon name="play" class="text-2xl"></ion-icon>
+                    <span class="ml-3 font-medium " >
+                        Play
+                    </span>
+                </button>
+            </a>
+        </div>
+    </div>
+</section> 
+
+
+<section class='bg-primary_black flex justify-center py-10'>
+    <div class="p-8 w-10/12 relative" >
+        <h2 class="text-gray-200 text-2xl font-medium">
+            Novo
+        </h2>
+        <div class="wrapper">
+          <section id="section1" class="flex flex-nowrap items-center justify-center space-x-8">
+            <a href="#section2" class="arrow__btn text-6xl page">‹</a>
+            {% for conteudo in lista_conteudos_recentes %}
+            {% if forloop.counter < 5 %}
+              <div class="item h-64 w-1/4 m-4">
+                
+                  <a href="{% url 'conteudo:detalhesconteudo' conteudo.pk %}">
+                    <img src="{{ conteudo.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                  </a>
+              </div>
+            {% endif %}
+            {% endfor %}
+                <a href="#section2" class="arrow__btn text-6xl">›</a>
+          </section>
+          {% if lista_conteudos_recentes|length > 4 %}
+              <section id="section2" class="flex flex-nowrap items-center justify-center">
+                <a href="#section1" class="arrow__btn text-6xl">‹</a>
+                {% for conteudo in lista_conteudos_recentes %}
+                {% if forloop.counter > 4 %}
+                  <div class="item h-64 w-1/4 m-4">
+                    
+                      <a href="{% url 'conteudo:detalhesconteudo' conteudo.pk %}">
+                        <img src="{{ conteudo.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                      </a>
+                  </div>
+                {% endif %}
+                {% endfor %}
+                <a href="#section1" class="arrow__btn text-6xl">›</a>
+              </section>
+            {% endif %}
+        </div>
+
+
+    </div>
+</section>
+
+</main>
+
 <div class="py-40">
     
     {% for conteudo in object_list %}

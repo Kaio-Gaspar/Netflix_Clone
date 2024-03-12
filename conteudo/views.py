@@ -21,6 +21,13 @@ class Detalhesconteudo(DetailView):
     template_name = 'detalhesconteudo.html'
     model = Conteudo_db
 
+    def get(self, request, *args, **kwargs):
+        #contabilizar visualizações
+        conteudo = self.get_object()
+        conteudo.qnt_views += 1
+        conteudo.save()
+        return super().get(request, *args, **kwargs) #redireciona o usuario para o url final
+
     def get_context_data(self, **kwargs):
         context = super(Detalhesconteudo, self).get_context_data(**kwargs)
 
