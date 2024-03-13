@@ -3,7 +3,64 @@
 {% block titulo %}
 HomeContent Netflix
 {% endblock %}
+{% block head %}
+<style>
+$itemGrow: 1.2;
+$duration: 250ms;
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+}
+
+h1 {
+  font-family: Arial;
+  color: red;
+  text-align: center;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3,100%);
+  overflow:hidden;
+  scroll-behavior: smooth;
+
+  section {
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    margin: 20px 0;
+    
+    .item {
+      padding: 0 2px;
+      transition: $duration all;
+      width: 300px;
+      
+      &:hover { 
+        margin: 0 40px;
+        transform: scale(1.2);
+      }
+      
+    }
+    
+    
+    
+  }
+}
+
+// Remove the arrow for Mobile
+@media only screen and (max-width: 600px) {
+  a.arrow__btn {
+    display:none;
+  }
+}
+</style>
+{% endblock %}
 {% block content %}
 
 <main class='bg-primary_black min-h-screen w-full'>
