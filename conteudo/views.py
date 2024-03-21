@@ -1,4 +1,5 @@
 from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Conteudo_db
 from django.views.generic import TemplateView, ListView, DetailView
@@ -35,3 +36,16 @@ class Detalhesconteudo(DetailView):
 
         context['conteudos_relacionados'] = conteudos_relacionados
         return context
+
+class Pesquisaconteudo(ListView):
+    template_name = 'pesquisa.html'
+    model = Conteudo_db
+
+    def get_queryset(self) -> QuerySet[Any]:
+        termo_pesquisa = self.request.GET.get('query')
+        if termo_pesquisa:
+            object_list =  Conteudo_db.objects.filter(titulo__icontains=termo_pesquisa)
+            return object_list
+        else:
+            return None
+        return super().get_queryset()

@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'conteudo.novos_context.lista_conteudos_recentes',
                 'conteudo.novos_context.lista_conteudos_populares',
+                'conteudo.novos_context.conteudo_destaque'
             ],
         },
     },
