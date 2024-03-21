@@ -66,7 +66,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'conteudo.novos_context.lista_conteudos_recentes',
                 'conteudo.novos_context.lista_conteudos_populares',
-                'conteudo.novos_context.conteudo_destaque'
+                
             ],
         },
     },
@@ -88,7 +88,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
+AUTH_USER_MODEL = 'conteudo.Usuario'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
