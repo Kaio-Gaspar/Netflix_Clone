@@ -27,12 +27,14 @@ class Detalhesconteudo(DetailView):
         conteudo = self.get_object()
         conteudo.qnt_views += 1
         conteudo.save()
+        usuario = request.user
+        usuario.conteudos_vistos.add(conteudo)
         return super().get(request, *args, **kwargs) #redireciona o usuario para o url final
 
     def get_context_data(self, **kwargs):
         context = super(Detalhesconteudo, self).get_context_data(**kwargs)
 
-        conteudos_relacionados = Conteudo_db.objects.filter(categoria=self.get_object().categoria)
+        conteudos_relacionados = Conteudo_db.objects.filter(categoria=self.get_object().categoria)[0:5]
 
         context['conteudos_relacionados'] = conteudos_relacionados
         return context

@@ -34,4 +34,4 @@ class Episodio(models.Model):
         return self.titulo
 
 class Usuario(AbstractUser):
-    conteudos_vistos = models.ManyToManyField("Conteudo_db", related_name="usuarios_vistos")
+    conteudos_vistos = models.ManyToManyField("Conteudo_db")
