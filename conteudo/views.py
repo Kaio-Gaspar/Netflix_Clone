@@ -3,7 +3,8 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Conteudo_db
 from django.views.generic import TemplateView, ListView, DetailView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -13,12 +14,17 @@ from django.views.generic import TemplateView, ListView, DetailView
 class Homepage(TemplateView):
     template_name = "homepage.html"
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('conteudo:homeconteudo')
+        else:
+            return super().get(request, *args, **kwargs) # redireciona para homepage
 
-class Homeconteudo(ListView):
+class Homeconteudo(LoginRequiredMixin, ListView):
     template_name = 'homeconteudo.html'
     model = Conteudo_db
 
-class Detalhesconteudo(DetailView):
+class Detalhesconteudo(LoginRequiredMixin, DetailView):
     template_name = 'detalhesconteudo.html'
     model = Conteudo_db
 
@@ -39,7 +45,7 @@ class Detalhesconteudo(DetailView):
         context['conteudos_relacionados'] = conteudos_relacionados
         return context
 
-class Pesquisaconteudo(ListView):
+class Pesquisaconteudo(LoginRequiredMixin, ListView):
     template_name = 'pesquisa.html'
     model = Conteudo_db
 
