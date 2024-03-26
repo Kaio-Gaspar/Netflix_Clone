@@ -4,35 +4,42 @@
 <nav class="w-full flex justify-between items-center py-3 px-4 fixed z-50">
 
     <div class="w-6/12">
-        <a href="#">
-            <img class="w-2/12"  src="{% static 'images/logonetflix.png' %}">
+        <a href="{% url 'conteudo:homepage' %}">
+            <img class="w-2/12" src="{% static 'images/logonetflix.png' %}">
 
         </a>
-    
+
     </div>
 
     <div class="w-6/12 flex flex-nowrap justify-end">
 
         <div class="mr-2">
             <form method="get" action="{% url 'conteudo:pesquisaconteudos' %}">
-                <input type="text" class="py-1 px-2 rounded-md text-black" name="query" value="{{ request.GET.query }}" placeholder="Pesquisar...">
+                <input type="text" class="py-1 px-2 rounded-md text-black" name="query" value="{{ request.GET.query }}"
+                    placeholder="Pesquisar...">
                 <input type="submit" value="">
             </form>
         </div>
-        
+        {% if user_authenticaded %}
+
         <a href="">
-            <button class="bg-red-600 text-white py-1 px-2 rounded-md">Login</button>
+            <button class="bg-red-600 text-white py-1 px-2 rounded-md mr-2">Login</button>
         </a>
+        {% else %}
+        <a href="">
+            <button class="bg-red-600 text-white py-1 px-2 rounded-md mr-2">Sair</button>
+        </a>
+        {% endif %}
+
 
         <div class="mr-2">
-        <a href="">
-            <button class="bg-red-600 text-white py-1 px-2 rounded-md">Editar perfil</button>
-        </a>
+            <a href="">
+                <button class="bg-red-600 text-white py-1 px-2 rounded-md">Editar perfil</button>
+            </a>
         </div>
 
         <div class="mr-2">
-            
+
         </div>
-    
     </div>
 </nav>
