@@ -1,10 +1,10 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from .models import Conteudo_db
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from .forms import Criarcontaform
 
 
 # Create your views here.
@@ -61,5 +61,13 @@ class Pesquisaconteudo(LoginRequiredMixin, ListView):
 class Paginaperfil(LoginRequiredMixin, TemplateView):
     template_name = 'editarperfil.html'
 
-class Criarconta(TemplateView):
+class Criarconta(FormView):
     template_name = 'criarconta.html'
+    form_class = Criarcontaform
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('conteudo:login')
