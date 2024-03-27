@@ -20,20 +20,21 @@
                 <input type="submit" value="">
             </form>
         </div>
-        {% if user_authenticaded %}
-
-        <a href="">
-            <button class="bg-red-600 text-white py-1 px-2 rounded-md mr-2">Login</button>
-        </a>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'conteudo:logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-600 text-white py-1 px-2 rounded-md mr-2">Sair</button>
+        </form>
+        
         {% else %}
-        <a href="">
-            <button class="bg-red-600 text-white py-1 px-2 rounded-md mr-2">Sair</button>
+        <a href="{% url 'conteudo:login' %}">
+            <button class="bg-red-600 text-white py-1 px-2 rounded-md mr-2">Login</button>
         </a>
         {% endif %}
 
 
         <div class="mr-2">
-            <a href="">
+            <a href="{% url 'conteudo:editarperfil' %}">
                 <button class="bg-red-600 text-white py-1 px-2 rounded-md">Editar perfil</button>
             </a>
         </div>
