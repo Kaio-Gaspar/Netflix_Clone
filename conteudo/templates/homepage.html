@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block titulo %}
 Homepage netflix
 {% endblock %}
 
 
 
+{% block head %}
+<style>
+    #id_email{
+        width: 100%;
+        height: 100%;
+        color: black;
+        padding:  5px 5px;
 
-
-
+    }
+</style>
+{% endblock %}
 
 
 
@@ -33,8 +40,9 @@ Homepage netflix
         <div class="w-full flex justify-cWenter">
             <div class="flex justify-center items-center w-11/12 md:w-10/12">
                 <form method="post" class="w-/12 justify-center">
+                    {% csrf_token %}
                     <div class="flex flex-grow items-stretch">
-                        <input>
+                        {{ form }}
                     <button class="bg-red-600 font-medium md:font-normal flex justify-center items-center py-2 px-3 md:px-0 rounded-br-sm rounded-tr-sm md:text-2xl" type="submit">
                         <span>
                             Acessar

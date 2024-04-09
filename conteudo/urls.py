@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from .views import Homepage, Homeconteudo, Detalhesconteudo, Pesquisaconteudo, Paginaperfil, Criarconta
 from django.contrib.auth import views as auth_view
 
@@ -14,9 +14,11 @@ urlpatterns = [
 
     path('logout/', auth_view.LogoutView.as_view(template_name='logout.html'), name='logout'),
 
-    path('editarperfil/', Paginaperfil.as_view(), name='editarperfil'),
+    path('editarperfil/<int:pk>', Paginaperfil.as_view(), name='editarperfil'),
 
-    path('criarconta/', Criarconta.as_view(), name='criarconta'  )
+    path('criarconta/', Criarconta.as_view(), name='criarconta'  ),
+
+    path('mudarsenha/', auth_view.PasswordChangeView.as_view(template_name='editarperfil.html', success_url=reverse_lazy('conteudo:homeconteudo')), name='mudarsenha'),
 
 
 

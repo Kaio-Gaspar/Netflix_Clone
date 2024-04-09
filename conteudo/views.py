@@ -1,24 +1,34 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, reverse
-from .models import Conteudo_db
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from .models import Conteudo_db, Usuario
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import Criarcontaform
+from .forms import Criarcontaform, FormHome
 
 
 # Create your views here.
 #def homepage(request):
 #   return render(request, "homepage.html")
 
-class Homepage(TemplateView):
+class Homepage(FormView):
     template_name = "homepage.html"
+    form_class = FormHome
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('conteudo:homeconteudo')
         else:
             return super().get(request, *args, **kwargs) # redireciona para homepage
+
+    def get_success_url(self):
+        email = self.request.POST.get("email")
+        usuarios = Usuario.objects.filter(email=email)
+        if usuarios:
+            return reverse('conteudo:login')
+        else:
+            return reverse('conteudo:criarconta')
+        
 
 class Homeconteudo(LoginRequiredMixin, ListView):
     template_name = 'homeconteudo.html'
@@ -58,8 +68,14 @@ class Pesquisaconteudo(LoginRequiredMixin, ListView):
             return None
         return super().get_queryset()
     
-class Paginaperfil(LoginRequiredMixin, TemplateView):
+class Paginaperfil(LoginRequiredMixin, UpdateView):
     template_name = 'editarperfil.html'
+    model = Usuario
+    fields = ['first_name', 'last_name', 'email']
+
+    def get_success_url(self):
+        return reverse('conteudo:homeconteudo')
+        
 
 class Criarconta(FormView):
     template_name = 'criarconta.html'

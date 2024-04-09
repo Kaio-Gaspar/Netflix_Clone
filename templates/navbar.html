@@ -34,9 +34,11 @@
 
 
         <div class="mr-2">
-            <a href="{% url 'conteudo:editarperfil' %}">
-                <button class="bg-red-600 text-white py-1 px-2 rounded-md">Editar perfil</button>
-            </a>
+            {% if user.is_authenticated %}
+        <a href="{% url 'conteudo:editarperfil' request.user.id %}">
+            <button class="bg-red-600 text-white py-1 px-2 rounded-md">Editar perfil</button>
+        </a>
+    {% endif %}
         </div>
 
         <div class="mr-2">
